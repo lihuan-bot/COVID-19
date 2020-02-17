@@ -9,18 +9,13 @@ import echarts from 'echarts'
 export default {
 name:'mapline',
 props:{
-date:Array,
-confirm:Array,
-dead:Array,
-heal:Array,
-suspect:Array
-
+  series:Array
 },
 mounted(){
   this.draw()
 },
 watch:{
-  confirm:{
+  series:{
     deep:true,
     handler(newval, oldval){
       this.$nextTick(()=>{
@@ -35,13 +30,13 @@ methods:{
     let line = echarts.init(this.$refs.mapline)
     let option = {
       title: {
-        text: '全国疫情新增趋势'
+        text: '上海疫情趋势图'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data: ['确诊', '治愈', '疑似', '死亡']
+        data: ['确诊', '治愈', '死亡']
     },
     grid: {
         left: '3%',
@@ -76,12 +71,6 @@ methods:{
             data: []
         },
         {
-            name: '疑似',
-            type: 'line',
-            stack: '总量',
-            data: []
-        },
-        {
             name: '死亡',
             type: 'line',
             stack: '总量',
@@ -90,12 +79,20 @@ methods:{
         
     ]
     }
-    
-    option.xAxis.data = this.date
-    option.series[0].data = this.confirm
-    option.series[1].data = this.heal
-    option.series[2].data = this.suspect
-    option.series[3].data = this.dead
+    let confirmedNum = []
+    let curesNum = []
+    let date = []
+    let deathsNum = []
+    this.series.map(item => {
+      confirmedNum.unshift(item.confirmedNum)
+      curesNum.unshift(item.curesNum)
+      date.unshift(item.date)
+      deathsNum.unshift(item.deathsNum)
+    })
+    option.xAxis.data = date
+    option.series[0].data = confirmedNum
+    option.series[1].data = curesNum
+    option.series[2].data = deathsNum
     line.setOption(option)
   }
 }
@@ -107,9 +104,10 @@ methods:{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 60px;
 }
 .mapline {
   width: 600px;
-  height: 600px;
+  height: 400px;
 }
 </style>

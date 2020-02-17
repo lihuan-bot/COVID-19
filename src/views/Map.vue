@@ -54,7 +54,6 @@ methods: {
   _getData() {
     getData().then(res =>{
       this.totalData  = res.data
-      console.log(this.totalData);
       // 地区数据整合
       let showObj = {}
       this.totalData.areaTree[0].children.map(item => {
@@ -119,7 +118,7 @@ methods: {
 }
 </script>
 
-<style>
+<style scoped>
 #map {
   margin-top: 80px;
 }

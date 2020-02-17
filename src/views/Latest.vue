@@ -1,25 +1,27 @@
 <template>
   <div class="latest">
-    <h1>最新进展</h1>
+    <news-content :newsList="newsList"/>
   </div>
 </template>
 <script>
+import NewsContent from '../components/NewsContent'
 import {getLatest} from '@/network/data'
 export default {
   name:"Latest",
+  data() {
+    return {
+      newsList:[]
+    }
+  },
+  components:{
+    NewsContent
+  },
   async created() {
     let res = await getLatest()
-    let data = JSON.parse(res.forum.extra.ncov_string_list)
-    // let data = JSON.parse(res.data[0].content)
-    // let data = res.data.list[0]
-    console.log(data);
-    
-    
+    this.newsList = JSON.parse(res.data[0].content).sub_raw_datas
   }
 }
 </script>
 <style scoped>
-.latest {
-  margin-top: 50px;
-}
+
 </style>
