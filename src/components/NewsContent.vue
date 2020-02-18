@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <div>
-      <img  src="../assets/top.png" alt="">
+      <img class="titleImg" src="../assets/top.png" alt="">
       <h2>疫情追踪</h2>
       <div class="newcontent">
         <div class="line"></div>
@@ -32,8 +32,8 @@ export default {
   justify-content: center;
   margin-top: 60px;
 }
-#content img {
-  width: 600px;
+.titleImg {
+  width: 635px;
   height: 280px;
   margin-top: 70px;
 }
@@ -80,5 +80,4 @@ export default {
   top: 30px;
   left: -40px;
 }
-
 </style>
