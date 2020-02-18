@@ -16,6 +16,9 @@ export default {
   components:{
     NavBar
   },
+  created(){
+    this.$router.push(this.$route.path).catch(()=> { })
+  },
   methods:{
     navBar(index) {
       switch(index) {
@@ -29,8 +32,7 @@ export default {
           this.$router.push('/shanghai').catch(()=> { })
           break   
       }
-      
-
+    
     }
   }
 }
