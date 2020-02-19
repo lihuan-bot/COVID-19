@@ -28,7 +28,8 @@ export default {
   },
   async created() {
     let res = await getSerise()
-    let data = JSON.parse(res.forum.extra.ncov_string_list).provinces[5]   
+    let data = JSON.parse(res.forum.extra.ncov_string_list).provinces.filter(item => item.id == 31)[0]
+   
     // 获取确诊数据
     this.showTotalNum = new TotalNum(data)
     // 获取各区数据
